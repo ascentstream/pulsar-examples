@@ -1,0 +1,23 @@
+pulsar:
+  topic:
+    test-topic: persistent://public/default/test-topic
+    test-topic-p: persistent://public/default/test-topic-p # Partitioned Topic
+    test-topic-json: persistent://public/default/test-topic-json
+    test-topic-json-p: persistent://public/default/test-topic-json-p # Partitioned Topic
+  client:
+#    service-pulsar-url: pulsar://127.0.0.1:6650
+#    service-http-url: http://127.0.0.1:8080
+    service-pulsar-url: pulsar://127.0.0.1:16650,127.0.0.1:26650,127.0.0.1:36650
+    service-http-url: http://127.0.0.1:18080,127.0.0.1:28080,127.0.0.1:38080
+spring:
+  pulsar:
+    client:
+      service-url: ${pulsar.client.service-pulsar-url}
+      authentication:
+        plugin-class-name: org.apache.pulsar.client.impl.auth.AuthenticationToken
+        param:
+          token: xxxx
+    admin:
+      service-url: ${pulsar.client.service-http-url}
+    producer:
+      batching-enabled: true

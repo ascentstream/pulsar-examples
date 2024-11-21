@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: local
+server:
+  tomcat:
+    basedir: ./logs
+    accesslog:
+      enabled: true
+      directory: ./
+      pattern: '%{X-Real-IP}i - %{Host}i %t "%r" %{Content-Length}i %{TRACKING_ID}o %s %b %F "%{Referer}i" "%{User-Agent}i" %a "%I" "-"'
+  port: 20000

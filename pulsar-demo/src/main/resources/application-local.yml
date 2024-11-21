@@ -1,0 +1,12 @@
+pulsar:
+  topic:
+    test-topic: persistent://xuwei/ns-xuwei/test-topic-p
+    test-topic-p: persistent://xuwei/ns-xuwei/test-topic-p # Partitioned Topic
+    test-topic-json: persistent://xuwei/ns-xuwei/test-topic-json
+    test-topic-json-p: persistent://xuwei/ns-xuwei/test-topic-json-p
+  client:
+#        service-pulsar-url: pulsar://127.0.0.1:6650
+#        service-http-url: http://127.0.0.1:8080
+    service-pulsar-url: pulsar://127.0.0.1:16650,127.0.0.1:26650,127.0.0.1:36650
+    service-http-url: http://127.0.0.1:18080,127.0.0.1:28080,127.0.0.1:38080
+
