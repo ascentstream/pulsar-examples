@@ -27,7 +27,8 @@ public class PulsarListenerCustomizerConfig {
         return (builder) -> builder
                 .receiverQueueSize(500)
                 .deadLetterPolicy(DeadLetterPolicy.builder()
-                        .maxRedeliverCount(3)
+                        .deadLetterTopic("test-topic-dead")
+                        .maxRedeliverCount(1)
                         .build())
                 ;
     }

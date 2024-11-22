@@ -26,7 +26,7 @@ public class PulsarListener4Shared {
             subscriptionType = SubscriptionType.Shared,
             ackMode = AckMode.MANUAL,
             topics = {"${pulsar.topic.test-topic: test-topic}"},
-            autoStartup = "true",
+            autoStartup = "false",
             batch = true,
             properties = { "consumerName=consumerSharedA" },
             consumerCustomizer = "consumerBatchReceiveCustomizer"
@@ -47,10 +47,30 @@ public class PulsarListener4Shared {
             topics = {"${pulsar.topic.test-topic: test-topic}"},
             autoStartup = "true",
             batch = true,
-            properties = { "consumerName=consumerSharedB" }
+            properties = { "consumerName=consumerSharedB" },
+            consumerCustomizer = "consumerDeadCustomizer"
 //            consumerCustomizer = "consumerRetryCustomizer"
     )
     public void listen4SharedB(List<Message<String>> messages, Consumer<String> consumer) {
+        logger.info("consumer {} received messages, size: {}", consumer.getConsumerName(), messages.size());
+        messages.forEach((message) -> {
+            logger.info(message.getValue());
+            int a = 1 / 0;
+            consumer.negativeAcknowledge(message);
+        });
+    }
+
+    @PulsarListener(
+            schemaType = SchemaType.STRING,
+            subscriptionName = "subscription-Shared",
+            subscriptionType = SubscriptionType.Shared,
+            ackMode = AckMode.MANUAL,
+            topics = {"test-topic-dead"},
+            autoStartup = "true",
+            batch = true,
+            properties = { "consumerName=consumerSharedB4Dead" }
+    )
+    public void listen4SharedB4Dead(List<Message<String>> messages, Consumer<String> consumer) {
         logger.info("consumer {} received messages, size: {}", consumer.getConsumerName(), messages.size());
         messages.forEach((message) -> {
             logger.info(message.getValue());
