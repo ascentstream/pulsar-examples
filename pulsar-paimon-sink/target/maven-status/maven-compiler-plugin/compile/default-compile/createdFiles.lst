@@ -1,0 +1,4 @@
+org/apache/pulsar/ecosystem/io/paimon/sink/CreateCatalog.class
+org/apache/pulsar/ecosystem/io/paimon/sink/PaimonWriter.class
+org/apache/pulsar/ecosystem/io/paimon/sink/SinkConnector.class
+org/apache/pulsar/ecosystem/io/paimon/sink/GetTable.class

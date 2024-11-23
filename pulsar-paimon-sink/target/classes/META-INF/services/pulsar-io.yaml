@@ -1,0 +1,4 @@
+name: paimon-sink
+description: Paimon Sink Connector
+sinkClass: org.apache.pulsar.ecosystem.io.paimon.sink.SinkConnector
+sinkConfigClass: org.apache.pulsar.ecosystem.io.paimon.sink.SinkConnectorConfig

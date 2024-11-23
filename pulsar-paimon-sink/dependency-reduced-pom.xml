@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <artifactId>apache</artifactId>
+    <groupId>org.apache</groupId>
+    <version>18</version>
+    <relativePath>../pom.xml/pom.xml</relativePath>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.apache.pulsar.ecosystem</groupId>
+  <artifactId>pulsar-io-paimon</artifactId>
+  <name>Pulsar Ecosystem :: IO Connector :: Lake House</name>
+  <version>2.11.0-SNAPSHOT</version>
+  <description>It is a lakehouse connector streaming convert data between lakehouse and Apache Pulsar.</description>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.4</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                  </excludes>
+                </filter>
+              </filters>
+              <transformers>
+                <transformer>
+                  <mainClass>com.example.PulsarJsonProducer</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.30</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+  <properties>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <java.version>17</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <pulsar.version>3.0.7</pulsar.version>
+    <paimon.version>0.9.0</paimon.version>
+    <shade.minimizeJar>true</shade.minimizeJar>
+  </properties>
+</project>
