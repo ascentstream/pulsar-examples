@@ -22,20 +22,24 @@ public class PulsarListener4Shared {
     // Subscription Shared demo
     @PulsarListener(
             schemaType = SchemaType.STRING,
-            subscriptionName = "subscription-Shared",
+            subscriptionName = "sub-topic3-2",
             subscriptionType = SubscriptionType.Shared,
             ackMode = AckMode.MANUAL,
             topics = {"${pulsar.topic.test-topic: test-topic}"},
-            autoStartup = "false",
+            autoStartup = "true",
             batch = true,
-            properties = { "consumerName=consumerSharedA" },
-            consumerCustomizer = "consumerBatchReceiveCustomizer"
+            properties = { "consumerName=consumerSharedA00000" },
+            consumerCustomizer = "consumerCommonCustomizer"
     )
     public void listen4SharedA(List<Message<String>> messages, Consumer<String> consumer) {
         logger.info("consumer {} received messages, size: {}", consumer.getConsumerName(), messages.size());
         messages.forEach((message) -> {
             logger.info(message.getValue());
-            consumer.negativeAcknowledge(message);
+            try {
+                consumer.acknowledge(message);
+            } catch (PulsarClientException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 

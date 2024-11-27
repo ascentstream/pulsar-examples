@@ -38,9 +38,20 @@ public class PulsarDemoApplicationRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         logger.info("PulsarDemoApplication Started.");
-        verifyDelayedMessageMissed();
+//        verifyDelayedMessageMissed();
+        sendMessages();
     }
 
+
+    private void sendMessages() throws InterruptedException {
+        int count = 0;
+        while (true) {
+            String message = String.format("Message %d", count++);
+            pulsarProducerService.sendMessage(message);
+            logger.info("Message sent: {}", message);
+            Thread.sleep(10*1000);
+        }
+    }
 
     private void verifyDelayedMessageMissed() throws PulsarClientException {
 
